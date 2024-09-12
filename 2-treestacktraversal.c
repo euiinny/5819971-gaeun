@@ -51,13 +51,36 @@ TreeNode* createNode(int data) {
     return newNode;
 }
 
-void InsertNode(TreeNode** node, int* list, int index, int size) {
-    if (index >= size) return;
+void PlaceNode(TreeNode* node, int direction, int data) {
+    TreeNode* newNode = createNode(data);
+    if (direction == 0) {
+        // 왼쪽에 배치
+        node->left = newNode;
+    } else {
+        // 오른쪽에 배치
+        node->right = newNode;
+    }
+}
 
-    *node = createNode(list[index]);
+void GenerateLinkTree(TreeNode** root) {
+    // 루트 노드를 생성
+    *root = createNode(1);  // 루트는 1
 
-    InsertNode(&(*node)->left, list, 2 * index + 1, size);
-    InsertNode(&(*node)->right, list, 2 * index + 2, size);
+    // 각 노드를 수동으로 배치
+    PlaceNode(*root, 0, 2);   // 1의 왼쪽에 2
+    PlaceNode(*root, 1, 9);   // 1의 오른쪽에 9
+    PlaceNode((*root)->left, 0, 3);  // 2의 왼쪽에 3
+    PlaceNode((*root)->left, 1, 5);  // 2의 오른쪽에 5
+    PlaceNode((*root)->right, 0, 10); // 9의 왼쪽에 10
+    PlaceNode((*root)->right, 1, 13); // 9의 오른쪽에 13
+    PlaceNode((*root)->left->left, 0, 4);  // 3의 왼쪽에 4
+    PlaceNode((*root)->left->left, 1, 6);  // 3의 오른쪽에 6
+    PlaceNode((*root)->left->right, 0, 7); // 5의 왼쪽에 7
+    PlaceNode((*root)->left->right, 1, 8); // 5의 오른쪽에 8
+    PlaceNode((*root)->right->left, 0, 11); // 10의 왼쪽에 11
+    PlaceNode((*root)->right->left, 1, 12); // 10의 오른쪽에 12
+    PlaceNode((*root)->right->right, 0, 14); // 13의 왼쪽에 14
+    PlaceNode((*root)->right->right, 1, 15); // 13의 오른쪽에 15
 }
 
 void StackInOrder(TreeNode* root) {
@@ -131,10 +154,9 @@ void LinkOrders(TreeNode* root) {
 }
 
 int main() {
-    int arr[15] = {1, 2, 9, 3, 5, 10, 13, 4, 6, 7, 8, 11, 12, 14, 15};
-
     TreeNode* root = NULL;
-    InsertNode(&root, arr, 0, 15);
+
+    GenerateLinkTree(&root);
 
     LinkOrders(root);
 
