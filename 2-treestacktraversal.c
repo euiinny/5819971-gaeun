@@ -154,7 +154,10 @@ void LinkOrders(TreeNode* root) {
 }
 
 int main() {
-    TreeNode* root = NULL;
+    TreeNode* root = (TreeNode*)malloc(sizeof(TreeNode)); // 루트 노드 생성
+    root->data = 1; // 루트 노드에 데이터 1 할당
+    root->left = NULL;
+    root->right = NULL;
 
     GenerateLinkTree(&root);
 
