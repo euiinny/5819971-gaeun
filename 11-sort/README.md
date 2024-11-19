@@ -1,2 +1,2 @@
-# dfsbfs{Result Image}
+# sort{Result Image}
 ![](./sort.png)
